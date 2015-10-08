@@ -27,4 +27,11 @@ var Game = function() {
 // Function to generate random numbers in an interval
 Game.prototype.rand = function(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
-};
+}
+Game.prototype.result = function(value1,value2){
+  return value1 + value2;
+}
+Game.prototype.count = 0;
+
+
+;
