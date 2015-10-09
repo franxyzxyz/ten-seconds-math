@@ -2,6 +2,7 @@ $(function(){
   var game = new Game();
   var timer;
   var countFrom = game.TIME_LIMIT;
+  $("#counter").html("Time Left: " + parseFloat(game.TIME_LIMIT).toFixed(2));
 
   // console.log(game.rand(5,7));
   // $("#counter").html(data.currentTime);
@@ -16,8 +17,10 @@ $(function(){
 
   function newSet(event){
     var userGuess = parseInt( $("#solution-input").val() );
+      $("#solution-input").css("border","0px")
 
     if (game.checkResult(userGuess)) {
+      $("#solution-input").css("border","0px")
       game.count++;
       console.log("Correct count: " + game.count);
       console.log("The Answer is Correct");
@@ -26,15 +29,18 @@ $(function(){
       $("#solution-input").val("");
       game.reset = 1;
 
+
     }else{
-      console.log("Wrong Answer");
+      // console.log("Wrong Answer");
+      $("#solution-input").css("border","5px solid red")
     };
 
-    console.log(game.reset);
     if (game.reset == 1){
       // console.log("Game.secondsLeft = " + game.secondsLeft);
       game.secondsLeft = game.TIME_LIMIT;
       game.reset= 0;
+      $("#counter").html("Time Left: " + parseFloat(game.TIME_LIMIT).toFixed(2));
+
       setTimer;
     }
   }
@@ -58,9 +64,10 @@ $(function(){
 
     if (game.secondsLeft <= 0){
       clearInterval(game.timer);
-      $("#counter").html('Time\s Out');
+      $("#counter").html('GAME OVER');
+      $("#solution-input").off();
     }else{
-      $("#counter").html(game.secondsLeft);
+      $("#counter").html("Time Left: " + parseFloat(game.secondsLeft).toFixed(2));
     };
   }
 

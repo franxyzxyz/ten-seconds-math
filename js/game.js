@@ -6,7 +6,7 @@ var Game = function() {
   // Time
   //------------------------------------------
   // Default value for time
-  this.TIME_LIMIT = 10;
+  this.TIME_LIMIT = 3;
   // Current seconds left
   this.secondsLeft = this.TIME_LIMIT;
   // Reference to timer Interval
