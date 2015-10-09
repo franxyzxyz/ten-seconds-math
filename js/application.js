@@ -1,65 +1,74 @@
 $(function(){
   var game = new Game();
+  var timer;
+  var countFrom = game.TIME_LIMIT;
+
   // console.log(game.rand(5,7));
   // $("#counter").html(data.currentTime);
   $("#solution-input").focus(setTimer);
-  $("#solution-input").change(newSet);
+  $("#solution-input").on("keyup", newSet);
 
-  console.log(game.count);
-  game.count = counter(game.count);
+  // console.log(game.count);
+  // game.count = counter(game.count);
+  game.generateNewResults();
 
-  var value1 = game.rand(0,10);
-  var value2 = game.rand(0,10);
-  var expectedResult = game.result(value1,value2);
-  $("#equation").html(value1 + " + " + value2);
-
-
-  function counter(currentCount){
-    if (currentCount == 0){
-      ///initialize Game
-      // var value1 = game.rand(0,10);
-      // var value2 = game.rand(0,10);
-      // var expectedResult = game.result(value1,value2);
-      // $("#equation").html(value1 + " + " + value2);
-    }else{
-      ///new Equation->getAnswer
-    }
-      // console.log(currentCount++);
-      return currentCount++;
-  }
+  $("#equation").html(game.value1 + " + " + game.value2);
 
   function newSet(event){
-    // counter(game.count);
-    console.log(game.count);
-    game.count = game.count++ ;
-    newAnswer = getAnswer(event);
-    console.log(newAnswer);
-  }
+    var userGuess = parseInt( $("#solution-input").val() );
 
+    if (game.checkResult(userGuess)) {
+      game.count++;
+      console.log("Correct count: " + game.count);
+      console.log("The Answer is Correct");
 
-  function getAnswer(event){
-    // console.log(event.target.id);
-    // var expectedResult = value;
-    if ($(event.target).val() == expectedResult){
-      console.log("first print: correct");
       var expectedAnswer = generateEquation(event);
-      console.log("second print:" + expectedAnswer);
-      $(event.target).val("");
-      setTimer();
-      return expectedAnswer;
+      $("#solution-input").val("");
+      game.reset = 1;
+
     }else{
       console.log("Wrong Answer");
     };
+
+    console.log(game.reset);
+    if (game.reset == 1){
+      // console.log("Game.secondsLeft = " + game.secondsLeft);
+      game.secondsLeft = game.TIME_LIMIT;
+      game.reset= 0;
+      setTimer;
+    }
   }
 
   function generateEquation(event){
-    var value1 = game.rand(0,10);
-    var value2 = game.rand(0,10);
-    expectedResult = value1+value2;
-    console.log("generate Equation Actoion");
-    $("#equation").html(value1 + " + " + value2);
-    return game.result(value1, value2);
+    game.generateNewResults();
+    $("#equation").html(game.value1 + " + " + game.value2);
+    return game.value1 + game.value2;
   }
+
+
+  var everySecond = function(){
+    //current time = minus time from countFrom
+    // $("#counter").html(countFrom--);
+    game.secondsLeft--;
+
+    if (game.reset == 1){
+      game.reset = 0;
+      clearInterval(game.timer);
+    };
+
+    if (game.secondsLeft <= 0){
+      clearInterval(game.timer);
+      $("#counter").html('Time\s Out');
+    }else{
+      $("#counter").html(game.secondsLeft);
+    };
+  }
+
+  function setTimer(){
+    game.timer = setInterval(everySecond,1000);
+  };
+
+
 })
 
 

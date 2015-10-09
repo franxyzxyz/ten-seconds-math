@@ -2,6 +2,7 @@ var timer;
 var countFrom = 10;
 
 var data = {};
+
 var everySecond = function(){
   //current time = minus time from countFrom
   // $("#counter").html(countFrom--);
@@ -9,10 +10,13 @@ var everySecond = function(){
   if (currentTime <= 0){
     clearInterval(secondsLeft);
     $("#counter").html('Time\s Out');
-
   }else{
     $("#counter").html(currentTime);
   };
+  // console.log(game.resetMeter);
+  // if (game.resetMeter == "123"){
+  //     clearInterval(secondsLeft);
+  // }
 }
 
 function setTimer(){

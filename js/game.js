@@ -16,22 +16,28 @@ var Game = function() {
   // Problems
   //------------------------------------------
   this.difficulty = 50;   // Determines how big numbers are
-  this.problem = null;    // Current problem to solve
+  this.value1 = null;    // Current problem to solve
+  this.value2 = null;    // Current problem to solve
 
   //------------------------------------------
   // Score
   //------------------------------------------
   this.score = 12;
+
+  this.count = 0;
+  this.reset = 0;
 };
 
 // Function to generate random numbers in an interval
 Game.prototype.rand = function(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-Game.prototype.result = function(value1,value2){
-  return value1 + value2;
+
+Game.prototype.generateNewResults = function(){
+  this.value1 = this.rand(0,10);
+  this.value2 = this.rand(0,10);
 }
-Game.prototype.count = 0;
 
-
-;
+Game.prototype.checkResult = function(userGuess){
+  return (userGuess === this.value1 + this.value2);
+}
