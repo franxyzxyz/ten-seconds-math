@@ -2,28 +2,16 @@
 'use strict';
 
 var Game = function() {
-  //------------------------------------------
-  // Time
-  //------------------------------------------
-  // Default value for time
   this.TIME_LIMIT = 3;
-  // Current seconds left
   this.secondsLeft = this.TIME_LIMIT;
-  // Reference to timer Interval
   this.timer = null;
 
-  //------------------------------------------
-  // Problems
-  //------------------------------------------
-  this.difficulty = 50;   // Determines how big numbers are
+  this.difficulty = 10;   // Determines how big numbers are
   this.value1 = null;    // Current problem to solve
   this.value2 = null;    // Current problem to solve
 
-  //------------------------------------------
-  // Score
-  //------------------------------------------
-  this.score = 12;
-
+  // this.score = 12;
+  this.points = 5;
   this.count = 0;
   this.reset = 0;
 };
@@ -34,8 +22,8 @@ Game.prototype.rand = function(min, max) {
 }
 
 Game.prototype.generateNewResults = function(){
-  this.value1 = this.rand(0,10);
-  this.value2 = this.rand(0,10);
+  this.value1 = this.rand(1,this.difficulty);
+  this.value2 = this.rand(1,this.difficulty);
 }
 
 Game.prototype.checkResult = function(userGuess){

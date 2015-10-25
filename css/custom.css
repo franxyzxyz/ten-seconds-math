@@ -38,3 +38,14 @@
   width: 200px;
 }
 
+#score{
+  font-color:blue;
+}
+
+input.error{
+  border: 5px solid red;
+}
+
+#restart{
+  visibility:hidden;
+}
